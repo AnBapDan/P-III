@@ -50,7 +50,8 @@ public class Check{
 		
 			if(botoes[0][0].getText().equals(botoes[1][1].getText()) && botoes[0][0].getText().equals(botoes[2][2].getText()) && !botoes[1][1].getText().equals("")) {
 				return true;
-			} else if(botoes[0][2].equals(botoes[1][1]) && botoes[0][2].equals(botoes[2][0]) && botoes[1][1].getText().equals("")) {
+			}
+			if(botoes[0][2].getText().equals(botoes[1][1].getText()) && botoes[0][2].getText().equals(botoes[2][0].getText()) && !botoes[1][1].getText().equals("")) {
 				return true;
 			}
 			
