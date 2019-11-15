@@ -1,69 +1,44 @@
-package aula8;
+package aula8;			//Class made by other classmate
 
-public class BitmapFileHeader {
-	private short type,reserved1,reserved2;
-	private int size,offBits;
+public class BitmapFileHeader 
+{
+	private short type; // must be 'BM' to declare a bmp-file
+	private int size; // specifies the size of the file in bytes 
+	private short reserved1; // must always be set to zero
+	private short reserved2; // must always be set to zero
+	private int offBits; // specifies the offset from the beginning of the file to the bitmap data
 	
-	public BitmapFileHeader(short type, int size, short reserved1, short reserved2, int offBits) {
-		super();
-		this.type = type;
-		this.reserved1 = reserved1;
-		this.reserved2 = reserved2;
-		this.size = size;
-		this.offBits = offBits;
-	}
-
-	public short getType() {
+	public short getType() 
+	{
 		return type;
 	}
 
-	public void setType(short type) {
-		this.type = type;
-	}
-
-	public short getReserved1() {
-		return reserved1;
-	}
-
-	public void setReserved1(short reserved1) {
-		this.reserved1 = reserved1;
-	}
-
-	public short getReserved2() {
-		return reserved2;
-	}
-
-	public void setReserved2(short reserved2) {
-		this.reserved2 = reserved2;
-	}
-
-	public int getSize() {
+	public int getSize() 
+	{
 		return size;
 	}
 
-	public void setSize(int size) {
-		this.size = size;
+	public short getReserved1() 
+	{
+		return reserved1;
 	}
 
-	public int getOffBits() {
+	public short getReserved2() 
+	{
+		return reserved2;
+	}
+
+	public int getOffBits() 
+	{
 		return offBits;
 	}
-	
-	public void setOffBits(int offBits) {
+
+	public BitmapFileHeader(short type, int size, int offBits)
+	{
+		this.type = type;
+		this.size = size;
+		this.reserved1 = 0;
+		this.reserved2 = 0;
 		this.offBits = offBits;
 	}
-	
-	@Override
-	public String toString() {
-		return "--BitmapFileHeader--\n"
-				+ "Type = " + type 
-				+ "\nReserved1 = " + reserved1 
-				+ "\nReserved2 = " + reserved2 
-				+ "\nSize = "+ size 
-				+ "\nOffBits = " + offBits + "\n";
-	}
-	
-	
-	
-	
 }

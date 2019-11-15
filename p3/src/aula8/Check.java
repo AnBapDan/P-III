@@ -4,7 +4,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 public class Check{
 	public Check() {}
-	private static int cont=0;
 	
 	
 	public static void checkCont(int cont){		//verifica o numero de jogadas
