@@ -35,7 +35,7 @@ public class GameWindow implements ActionListener {
 	private JPanel btns;
 	private boolean nextQuestion=false;
 	private int numQst=0;
-	private boolean answered=false,ctrl=false;
+	private boolean answered=false,ctrl=false,lastQuestion=true;;
 	private String[] qst,ch,ans;
 	
 	
@@ -165,16 +165,16 @@ public class GameWindow implements ActionListener {
 //		for(String s:qst)System.out.println(s);
 //		for(String s:ch)System.out.println(s);
 //		for(String s:ans)System.out.println(s);
-		while(numQst!=qst.length) {
+		int rnd1,rnd2,rnd3,rnd4;
+		while(numQst!=14) {
 			System.out.println(numQst);
 			System.out.println(nextQuestion);
-			if(qst[numQst]==null) {
-				JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
-				System.exit(0);
-			}
+//			if(numQst==14 && nextQuestion) {
+//				JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
+//				System.exit(0);
+//			}
 			nextQuestion=false;
 			question.setText("<html><p>"+qst[numQst]+"<br><br></p></html>");
-			int rnd1,rnd2,rnd3,rnd4;
 			do {
 				rnd1 = getRnd();
 				rnd2 = getRnd();
@@ -198,7 +198,28 @@ public class GameWindow implements ActionListener {
 				img.setIcon(image);
 			}
 		}
-		
+		do {
+			System.out.println(numQst);
+			System.out.println(nextQuestion);
+			do {
+				rnd1 = getRnd();
+				rnd2 = getRnd();
+				rnd3 = getRnd();
+				rnd4 = getRnd();
+			}while(rnd1==rnd2 || rnd1==rnd3 || rnd1==rnd4 || rnd2==rnd3 || rnd2==rnd4 || rnd3==rnd4);
+			question.setText("<html><p>"+qst[14]+"<br><br></p></html>");
+			if(!ctrl) {
+				ans1.setText(ch[(numQst*4)+rnd1]);
+				ans2.setText(ch[(numQst*4)+rnd2]);
+				ans3.setText(ch[(numQst*4)+rnd3]);
+				ans4.setText(ch[(numQst*4)+rnd4]);
+				ctrl = true;
+			}
+			
+		}
+		while(lastQuestion);
+		JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
+		System.exit(0);
 	}
 
 	@Override
@@ -251,7 +272,8 @@ public class GameWindow implements ActionListener {
 				else JOptionPane.showMessageDialog(null,"Ganhou "+money[numQst-1]+"€!");
 				System.exit(0);
 			}
-			if(nextQuestion)numQst++;
+			if(numQst==14 && nextQuestion)lastQuestion=false;
+			if(nextQuestion && numQst!=14)numQst++;
 			deselect();
 			enable();
 			ctrl=false;

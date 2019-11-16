@@ -6,7 +6,7 @@ import java.util.*;
 public class QQSM {
 	static File quiz;
 	static Scanner sc;
-	String[] qst = new String[16];
+	String[] qst = new String[15];
 	String[] ch = new String[60];
 	String[] ans = new String[15];
 	int[] seq1 = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14},seq2 = {0,14,1,13,2,12,3,11,4,10,5,9,6,8,7},
@@ -14,7 +14,7 @@ public class QQSM {
 	
 	public QQSM() {
 		int cont=0;
-		String[] lines = new String[16];
+		String[] lines = new String[15];
 		if(!quiz.exists()) lines = load();
 		else {
 			if(sc.hasNextLine()) {
@@ -27,8 +27,8 @@ public class QQSM {
 		}
 		int[] seq = getSeq();
 		String[] copy = lines;
-		lines = new String[16];
-		for(int i=0;i<copy.length-1;i++) {
+		lines = new String[15];
+		for(int i=0;i<copy.length;i++) {
 			lines[i]=copy[seq[i]];
 		}
 //		QQSM.randLines(lines);
@@ -43,8 +43,6 @@ public class QQSM {
 			this.ch[cont+3]=spl[4];
 			this.ans[i]=spl[5];
 		}
-		this.qst[15]=null;
-		
 	}
 	
 	public String[] getQst() {
