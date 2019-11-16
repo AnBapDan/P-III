@@ -16,6 +16,7 @@ public class GameWindow implements ActionListener {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	private QQSM game;
+	private JFrame gameBox;
 	private JRadioButton ans1;
 	private JRadioButton ans2;
 	private JRadioButton ans3;
@@ -34,11 +35,15 @@ public class GameWindow implements ActionListener {
 	private JPanel btns;
 	private boolean nextQuestion=false;
 	private int numQst=0;
-	private boolean answered=false;
+	private boolean answered=false,ctrl=false;
+	private String[] qst,ch,ans;
 	
 	
 	public GameWindow(QQSM game) {
 		this.game=game;
+		this.qst = this.getGame().getQst();
+		this.ch = this.getGame().getCh();
+		this.ans = this.getGame().getAns();
 		start();
 	}
 	
@@ -47,12 +52,13 @@ public class GameWindow implements ActionListener {
 	}
 	
 	public void start() {
-		JFrame gameBox = new JFrame("Quem Quer Ser Milionário?");
+		gameBox = new JFrame("Quem Quer Ser Milionário?");
 		gameBox.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gameBox.setSize(1000,750);
 		gameBox.setLayout(new GridLayout(2,2));
 		gameBox.setLocationRelativeTo(null);		
 		gameBox.setVisible(true);
+		gameBox.setBackground(Color.white);
 		JPanel[][] panelHolder = new JPanel[2][2];
 		for(int i=0;i<2;i++) {
 			for(int j=0;j<2;j++) {
@@ -63,6 +69,9 @@ public class GameWindow implements ActionListener {
 		
 			
 		imageBox = panelHolder[0][0];
+		SpringLayout sp = new SpringLayout();
+		imageBox.setLayout(sp);
+		imageBox.setPreferredSize(new Dimension(450,300));
 		BufferedImage buff1 = null, buff2 = null;
 		try {
 			buff1 = ImageIO.read(new File("qqsm_material/img0.png"));
@@ -75,7 +84,8 @@ public class GameWindow implements ActionListener {
 		Image img1 = buff1.getScaledInstance(imageBox.getWidth(), imageBox.getHeight(), Image.SCALE_SMOOTH);
 		Image img2 = buff2.getScaledInstance(imageBox.getWidth(), imageBox.getHeight(), Image.SCALE_SMOOTH);
 		ImageIcon image = new ImageIcon();
-		JLabel img = new JLabel(); 
+		JLabel img = new JLabel();
+		sp.putConstraint(SpringLayout.WEST, img, 30, SpringLayout.WEST, imageBox);
 		imageBox.add(img);
 		gameBox.add(imageBox);
 		
@@ -91,11 +101,13 @@ public class GameWindow implements ActionListener {
 		question = new JLabel();
 		question.setFont(new Font("Arial", Font.PLAIN, 20));
 		question.setBorder(blackline);
-		sl.putConstraint(SpringLayout.NORTH, question, 200, SpringLayout.NORTH, questionBox);
+		question.setPreferredSize(new Dimension(300,200));
+		sl.putConstraint(SpringLayout.NORTH, question, 150, SpringLayout.NORTH, questionBox);
+		sl.putConstraint(SpringLayout.WEST, question, 20, SpringLayout.WEST, questionBox);
 		
 		moneyMark = new JLabel();
-		moneyMark.setVerticalAlignment(SwingConstants.TOP);
-		moneyMark.setHorizontalAlignment(SwingConstants.RIGHT);
+		moneyMark.setPreferredSize(new Dimension(100,50));
+		sl.putConstraint(SpringLayout.WEST, moneyMark, 450, SpringLayout.WEST, questionBox);
 		questionBox.add(moneyMark);
 //		questionBox.add(qbox2);
 //		qbox2.add(question)
@@ -150,13 +162,32 @@ public class GameWindow implements ActionListener {
 		btnHolder[2][0].add(quit);
 		btnHolder[2][0].add(confirm);
 		gameBox.add(btns);
-		while(!nextQuestion) {
+//		for(String s:qst)System.out.println(s);
+//		for(String s:ch)System.out.println(s);
+//		for(String s:ans)System.out.println(s);
+		while(numQst!=qst.length) {
+			System.out.println(numQst);
+			System.out.println(nextQuestion);
+			if(qst[numQst]==null) {
+				JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
+				System.exit(0);
+			}
 			nextQuestion=false;
-			question.setText("<html><p>"+this.getGame().getQst()[numQst]+"</p></html>");
-			ans1.setText(this.getGame().getCh()[numQst*4]);
-			ans2.setText(this.getGame().getCh()[(numQst*4)+1]);
-			ans3.setText(this.getGame().getCh()[(numQst*4)+2]);
-			ans4.setText(this.getGame().getCh()[(numQst*4)+3]);
+			question.setText("<html><p>"+qst[numQst]+"<br><br></p></html>");
+			int rnd1,rnd2,rnd3,rnd4;
+			do {
+				rnd1 = getRnd();
+				rnd2 = getRnd();
+				rnd3 = getRnd();
+				rnd4 = getRnd();
+			}while(rnd1==rnd2 || rnd1==rnd3 || rnd1==rnd4 || rnd2==rnd3 || rnd2==rnd4 || rnd3==rnd4);
+			if(!ctrl) {
+				ans1.setText(ch[(numQst*4)+rnd1]);
+				ans2.setText(ch[(numQst*4)+rnd2]);
+				ans3.setText(ch[(numQst*4)+rnd3]);
+				ans4.setText(ch[(numQst*4)+rnd4]);
+				ctrl = true;
+			}
 			moneyMark.setText(money[numQst]+"€");
 			if(numQst%2==0) {
 				image = new ImageIcon(img1);
@@ -204,43 +235,26 @@ public class GameWindow implements ActionListener {
 		else if(btn.equals(confirm) && answered) {
 			answered = false;
 			if(ans1.isSelected() && checkAnswer(ans1.getText())) {
-				numQst++;
 				nextQuestion=true;
-				if(this.getGame().getQst()[numQst]==null) {
-					JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
-					System.exit(0);
-				}
 			}
 			else if(ans2.isSelected() && checkAnswer(ans2.getText())) {
-				numQst++;
 				nextQuestion=true;
-				if(this.getGame().getQst()[numQst]==null) {
-					JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
-					System.exit(0);
-				}
 			}
 			else if(ans3.isSelected() && checkAnswer(ans3.getText())) {
-				numQst++;
 				nextQuestion=true;
-				if(this.getGame().getQst()[numQst]==null) {
-					JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
-					System.exit(0);
-				}
 			}
 			else if(ans4.isSelected() && checkAnswer(ans4.getText())) {
-				numQst++;
 				nextQuestion=true;
-				if(this.getGame().getQst()[numQst]==null) {
-					JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
-					System.exit(0);
-				}
 			}
 			else {
 				if(numQst==0)JOptionPane.showMessageDialog(null,"Ganhou "+money[numQst]+"€!");
 				else JOptionPane.showMessageDialog(null,"Ganhou "+money[numQst-1]+"€!");
 				System.exit(0);
 			}
+			if(nextQuestion)numQst++;
 			deselect();
+			enable();
+			ctrl=false;
 		}
 		else if(btn.equals(quit)) {
 			if(numQst==0)JOptionPane.showMessageDialog(null,"Ganhou "+money[numQst]+"€!");
@@ -257,11 +271,19 @@ public class GameWindow implements ActionListener {
 			audienceHelpButton();
 		}
 	}
+	
 	private void deselect() {
 		ans1.setSelected(false);
 		ans2.setSelected(false);
 		ans3.setSelected(false);
 		ans4.setSelected(false);
+	}
+	
+	private void enable() {
+		ans1.setEnabled(true);
+		ans2.setEnabled(true);
+		ans3.setEnabled(true);
+		ans4.setEnabled(true);
 	}
 	
 	private void audienceHelpButton() {
@@ -357,7 +379,25 @@ public class GameWindow implements ActionListener {
 		return -1;
 	}
 	
+	private int getRnd() {
+		double num = Math.random()*3;
+		if(num>=2.5) {
+			return 3;
+		}
+		else if(num<2.5 && num>=1.5) {
+			return 2;
+		}
+		else if (num<1.5 && num>=0.5) {
+			return 1;
+		}
+		else if(num<0.5) {
+			return 0;
+		}
+		return -1;
+
+	}
+	
 	private boolean checkAnswer(String text) {
-		return text.equalsIgnoreCase(this.getGame().getAns()[numQst]);
+		return text.equalsIgnoreCase(ans[numQst]);
 	}
 }
