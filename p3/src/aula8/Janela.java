@@ -1,11 +1,9 @@
 package aula8;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-
 
 public class Janela implements ActionListener{
 	private static JToggleButton[][] botoes = new JToggleButton[3][3];
@@ -25,11 +23,7 @@ public class Janela implements ActionListener{
 		
 		janela();
 	}
-	
-	
-	public static JToggleButton[][] getBotoes() {
-		return botoes;
-	}
+	public static JToggleButton[][] getBotoes() {return botoes;}
 	
 	public void janela() {
 		JFrame frame = new JFrame("Jogo do Galo");
@@ -43,7 +37,6 @@ public class Janela implements ActionListener{
 		contentor.setOpaque(true);
 		contentor.setLayout(new GridLayout(3,3));
 		
-		
 		for(int i = 0 ; i<3 ; i++) {
 			for(int j= 0; j<3; j++) {
 				botoes[i][j]= new JToggleButton("");
@@ -53,13 +46,9 @@ public class Janela implements ActionListener{
 			}
 		}	
 	}
-	
 
-
-	
 	@Override
 	public void actionPerformed(ActionEvent x) {
-
 		JToggleButton b = (JToggleButton) x.getSource();
 		if(cont %2 == 0) {
 			b.setText(pos);
@@ -72,12 +61,6 @@ public class Janela implements ActionListener{
 			Check.winner(pos2,getBotoes());
 		}
 		cont++;	
-
 		Check.checkCont(cont);
 	}
-
-
-	
-	
-
 }
