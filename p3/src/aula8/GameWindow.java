@@ -165,16 +165,16 @@ public class GameWindow implements ActionListener {
 //		for(String s:qst)System.out.println(s);
 //		for(String s:ch)System.out.println(s);
 //		for(String s:ans)System.out.println(s);
-		int rnd1,rnd2,rnd3,rnd4;
+		int rnd1=0,rnd2=0,rnd3=0,rnd4=0;
 		while(numQst!=14) {
 //			System.out.println(numQst);
 //			System.out.println(nextQuestion);
 ////			if(numQst==14 && nextQuestion) {
 //				JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
 //				System.exit(0);
-//			}
+//		}
 			nextQuestion=false;
-			question.setText("<html><p>"+qst[numQst]+"<br><br></p></html>");
+			question.setText(qst[numQst]);
 			do {
 				rnd1 = getRnd();
 				rnd2 = getRnd();

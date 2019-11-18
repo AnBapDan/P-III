@@ -35,13 +35,13 @@ public class QQSM {
 		for(int i=0;i<lines.length;i++) {
 			if(lines[i]==null)break;
 			String[] spl = lines[i].split("->");
-			this.qst[i]=spl[0];
+			this.qst[i]="<html><p>"+spl[0]+"<br><br></p></html>";
 			cont=i*4;
-			this.ch[cont]=spl[1];
-			this.ch[cont+1]=spl[2];
-			this.ch[cont+2]=spl[3];
-			this.ch[cont+3]=spl[4];
-			this.ans[i]=spl[5];
+			this.ch[cont]="<html>"+spl[1]+"</html>";
+			this.ch[cont+1]="<html>"+spl[2]+"</html>";
+			this.ch[cont+2]="<html>"+spl[3]+"</html>";
+			this.ch[cont+3]="<html>"+spl[4]+"</html>";
+			this.ans[i]="<html>"+spl[5]+"</html>";
 		}
 	}
 	
@@ -58,7 +58,23 @@ public class QQSM {
 	}
 
 	private String[] load() {
-		return null;
+		String[] str=	{"Qual o número correspondente ao pH neutro?->5->10->7->13->7",
+						"Qual o primeiro nome do vocalista do grupo Diabo na Cruz?->Jorge->Paulo->João->Bruno->Jorge",
+						"Quantos distritos tem Portugal?->6->18->12->24->18",
+						"Qual o valor em Celsius de zero absoluto?->-275->0->-130->130->-275",
+						"Quantos bits tem um byte?->4->1->16->8->8",
+						"Obikwelu praticava que modalidade?->Andebol->Atletismo->Futebol->Golf->Atletismo",
+						"Um quadrado com √(2)  metros de comprimento tem quanto de área?->3->1->4->2->2",
+						"Uma pessoa corre a 15km/h. Quanto tempo leva a percorrer 10km?->40min->50min->30min->60min->40min",
+						"Na série \"The Simpsons\" como se chama o condutor do autocarro da escola?->John->Terry->Otto->Freddy->Otto",
+						"Num jogo de hóquei, quantos elementos, de cada equipa, podem estar em campo?->5->7->8->11->5",
+						"Qual a data da Batalha de Aljubarrota?->1385->1445->1259->1301->1385",
+						"Tyrannosaurus Rex significa?->lagarto tirano rei->Tirano dos Répteis->Rei dos lagartos->Dinossauro tirano rei->Dinossauro tirano rei",
+						"Fernando Pessoa desdobrava-se em quantas entidades literárias?->4->3->2->1->3",
+						"Quem descobriu o raio-x?->Hermann von Helmholtz->Wilhelm Conrad Röntgen->Fernando Sanford->Nikola Tesla->Hermann von Helmholtz",
+						"Qual é o número atómico do laurêncio?->103->40->99->15->99"};
+
+		return str;
 	}
 	
 	private int[] getSeq() {
