@@ -9,7 +9,7 @@ Uma pessoa corre a 15km/h. Quanto tempo leva a percorrer 10km?->40min->50min->30
 Na série "The Simpsons" como se chama o condutor do autocarro da escola?->John->Terry->Otto->Freddy->Otto
 Num jogo de hóquei, quantos elementos, de cada equipa, podem estar em campo?->5->7->8->11->5
 Qual a data da Batalha de Aljubarrota?->1385->1445->1259->1301->1385
-Tyrannosaurus Rex significa?->lagarto tirano rei->Tirano dos Répteis->Rei dos lagartos->Dinossauro tirano rei->Dinossauro tirano rei
-Fernando Pessoa desdobrava-se em quantas entidades literárias?->4->3->2->1->3
+Tyrannosaurus Rex significa?->lagarto tirano rei->Tirano dos Répteis->Rei dos lagartos->Dinossauro tirano rei->Rei dos lagartos
+Em que anos ocorreu a Revolução dos cravos?->1984->1974->1987->1977->1974
 Quem descobriu o raio-x?->Hermann von Helmholtz->Wilhelm Conrad Röntgen->Fernando Sanford->Nikola Tesla->Hermann von Helmholtz
 Qual é o número atómico do laurêncio?->103->40->99->15->99

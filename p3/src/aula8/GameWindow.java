@@ -72,18 +72,8 @@ public class GameWindow implements ActionListener {
 		SpringLayout sp = new SpringLayout();
 		imageBox.setLayout(sp);
 		imageBox.setPreferredSize(new Dimension(450,300));
-		BufferedImage buff1 = null, buff2 = null;
-		try {
-			buff1 = ImageIO.read(new File("qqsm_material/img0.png"));
-			buff2 = ImageIO.read(new File("qqsm_material/img1.png"));
-			
-		}
-		catch(IOException e) {
-			e.printStackTrace();
-		}
-		Image img1 = buff1.getScaledInstance(imageBox.getWidth(), imageBox.getHeight(), Image.SCALE_SMOOTH);
-		Image img2 = buff2.getScaledInstance(imageBox.getWidth(), imageBox.getHeight(), Image.SCALE_SMOOTH);
-		ImageIcon image = new ImageIcon();
+		ImageIcon img1 = new ImageIcon(getClass().getResource("../qqsm_material/img0.png"));
+		ImageIcon img2 = new ImageIcon(getClass().getResource("../qqsm_material/img1.png"));
 		JLabel img = new JLabel();
 		sp.putConstraint(SpringLayout.WEST, img, 30, SpringLayout.WEST, imageBox);
 		imageBox.add(img);
@@ -93,11 +83,6 @@ public class GameWindow implements ActionListener {
 		SpringLayout sl = new SpringLayout();
 		questionBox.setLayout(sl);
 		Border blackline = BorderFactory.createLineBorder(Color.black);
-//		JPanel qbox2 = new JPanel();
-//		qbox2.setBorder(blackline);
-//		qbox2.setPreferredSize(new Dimension(300,150));
-//		sl.putConstraint(SpringLayout.EAST, qbox2, -50, SpringLayout.EAST, questionBox);
-//		sl.putConstraint(SpringLayout.NORTH, qbox2, 50, SpringLayout.NORTH, questionBox);
 		question = new JLabel();
 		question.setFont(new Font("Arial", Font.PLAIN, 20));
 		question.setBorder(blackline);
@@ -109,8 +94,6 @@ public class GameWindow implements ActionListener {
 		moneyMark.setPreferredSize(new Dimension(100,50));
 		sl.putConstraint(SpringLayout.WEST, moneyMark, 450, SpringLayout.WEST, questionBox);
 		questionBox.add(moneyMark);
-//		questionBox.add(qbox2);
-//		qbox2.add(question)
 		questionBox.add(question);
 		gameBox.add(questionBox);
 		
@@ -190,12 +173,12 @@ public class GameWindow implements ActionListener {
 			}
 			moneyMark.setText(money[numQst]+"€");
 			if(numQst%2==0) {
-				image = new ImageIcon(img1);
-				img.setIcon(image);
+//				image = new ImageIcon(img1);
+				img.setIcon(img1);
 			}
 			else {
-				image = new ImageIcon(img2);
-				img.setIcon(image);
+//				image = new ImageIcon(img2);
+				img.setIcon(img2);
 			}
 		}
 		do {
