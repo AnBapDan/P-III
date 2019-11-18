@@ -167,9 +167,9 @@ public class GameWindow implements ActionListener {
 //		for(String s:ans)System.out.println(s);
 		int rnd1,rnd2,rnd3,rnd4;
 		while(numQst!=14) {
-			System.out.println(numQst);
-			System.out.println(nextQuestion);
-//			if(numQst==14 && nextQuestion) {
+//			System.out.println(numQst);
+//			System.out.println(nextQuestion);
+////			if(numQst==14 && nextQuestion) {
 //				JOptionPane.showMessageDialog(null,"Jogo Terminado!\nGanhou "+money[numQst-1]+"€!");
 //				System.exit(0);
 //			}
@@ -199,8 +199,8 @@ public class GameWindow implements ActionListener {
 			}
 		}
 		do {
-			System.out.println(numQst);
-			System.out.println(nextQuestion);
+//			System.out.println(numQst);
+//			System.out.println(nextQuestion);
 			do {
 				rnd1 = getRnd();
 				rnd2 = getRnd();
