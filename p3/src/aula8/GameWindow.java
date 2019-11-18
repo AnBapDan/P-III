@@ -321,22 +321,23 @@ public class GameWindow implements ActionListener {
 		percentage[1] = makeRound(Math.random()*2);
 		percentage[2] = makeRound(Math.random()*2);
 		percentage[0] = makeRound(Math.random()*2);
-		while(percentage[1]+percentage[2]+percentage[0]>100-percentage[3]) {
+		while(percentage[1]+percentage[2]+percentage[0]>100-percentage[3] || percentage[0]<0 || percentage[1]<0 || percentage[2]<0 || percentage[3]<0) {
 			percentage[1]=(int)((100-percentage[3])/3);
 			percentage[2]=percentage[1]+makeRound(Math.random()*2);
 			percentage[0]=percentage[1]-makeRound(Math.random()*2);
 		}
 		String message = "";
 		
+		String c;
 		for(int i=0;i<group.size();i++) {
 			if(checkAnswer(group.get(i).getText())){
-				message += group.get(i).getText()+":"+percentage[3]+"%\n";
+				c = cleanString(group.get(i).getText())+":"+percentage[3]+"%\n";
 			}
 			else {
-				message += group.get(i).getText()+":"+percentage[cont]+"%\n";
+				c = cleanString(group.get(i).getText())+":"+percentage[cont]+"%\n";
 				cont++;
 			}
-			
+			message+=c;
 		}
 		JOptionPane.showMessageDialog(null,message);
 		audienceHelp.setEnabled(false);
@@ -361,8 +362,8 @@ public class GameWindow implements ActionListener {
 		int percentage2 = (int) (Math.random()*(numQst+3));
 		if(percentage2>100-percentage1)percentage2=100-percentage1;
 		JOptionPane.showMessageDialog(null,"Dúvida entre:\n"+
-											rjb.getText()+":"+percentage1+"%\n"+
-											group.get(rand1).getText()+":"+percentage2+"%");
+											cleanString(rjb.getText())+":"+percentage1+"%\n"+
+											cleanString(group.get(rand1).getText())+":"+percentage2+"%");
 		phoneHelp.setEnabled(false);
 	}
 	
@@ -421,5 +422,13 @@ public class GameWindow implements ActionListener {
 	
 	private boolean checkAnswer(String text) {
 		return text.equalsIgnoreCase(ans[numQst]);
+	}
+	
+	private String cleanString(String s) {
+		s = s.replaceAll("html", "");
+		s = s.replaceAll(">", "");
+		s = s.replaceAll("<", "");
+		s = s.replaceAll("/", "");
+		return s;
 	}
 }
