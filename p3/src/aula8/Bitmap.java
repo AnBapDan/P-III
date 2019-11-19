@@ -1,4 +1,4 @@
-package aula8;			//Class made by other classmate
+package aula8;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,6 +11,7 @@ public class Bitmap
 	byte[] rgbQuad;  
 	byte[] data;
 	private Pixel[][] pixelArray;
+	private int width=100, height=100;
 	
 	public Bitmap(String path) throws IOException
 	{
@@ -27,8 +28,8 @@ public class Bitmap
 		
 		//Process bitmap info header
 		size = Integer.reverseBytes(file.readInt());
-		int width = Integer.reverseBytes(file.readInt());
-		int height = Math.abs(Integer.reverseBytes(file.readInt()));
+		width = Integer.reverseBytes(file.readInt());
+		height = Math.abs(Integer.reverseBytes(file.readInt()));
 		short planes = Short.reverseBytes(file.readShort());
 		short bitCount = Short.reverseBytes(file.readShort());
 		int compression = Integer.reverseBytes(file.readInt());
@@ -56,6 +57,16 @@ public class Bitmap
 		
 	}
 	
+	public Bitmap() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Bitmap(BitmapFileHeader a, BitmapInfoHeader b, byte[] data) {
+		this.bitmapFileHeader=a;
+		this.bitmapInfoHeader=b;
+		this.data=data;
+	}
+
 	public static byte[] pixelToByteArray(Pixel[][] pixelArray) 
 	{
 		byte[] byteArray = new byte[pixelArray.length * pixelArray[0].length * 3];
@@ -90,29 +101,55 @@ public class Bitmap
 		return pixels;
 	}
 	
-	public void resize()
-	{
-		this.getBitmapInfoHeader().setWidth((int) Math.round(this.getBitmapInfoHeader().getWidth() * 0.5));
-		this.getBitmapInfoHeader().setHeight((int) Math.round(this.getBitmapInfoHeader().getHeight() * 0.5));
+//	public void resize()
+//	{
+//		this.getBitmapInfoHeader().setWidth((int) Math.round(this.getBitmapInfoHeader().getWidth() * 0.5));
+//		this.getBitmapInfoHeader().setHeight((int) Math.round(this.getBitmapInfoHeader().getHeight() * 0.5));
+//		
+//		
+//		Pixel[][] newPixelArray = new Pixel[this.bitmapInfoHeader.getxPelsPerMeter()/2][this.bitmapInfoHeader.getyPelsPerMeter()/2];
+//		
+//		int pixelsX = 0;
+//        int pixelsY = 0;
+//        
+//		for(int y = 0; y < this.bitmapInfoHeader.getyPelsPerMeter()/2; y++) 
+//		{
+//			for(int x = 0; x < this.bitmapInfoHeader.getxPelsPerMeter()/2; x++) 
+//			{
+//				newPixelArray[y][x] = pixelArray[pixelsY][pixelsX];
+//				pixelsX += 2;
+//			}
+//			pixelsX = 0;
+//			pixelsY += 2;
+//		}
+//		
+//		this.pixelArray = newPixelArray;
+//	}
+	
+	public Bitmap shrink() {
+		int w = this.width*3;
+		int h = this.height;
+		byte[] d = new byte[data.length / 4];
+		int t = 0;
 		
-		
-		Pixel[][] newPixelArray = new Pixel[this.pixelArray.length/2][pixelArray[0].length/2];
-		
-		int pixelsX = 0;
-        int pixelsY = 0;
-        
-		for(int y = 0; y < pixelArray.length/2; y++) 
-		{
-			for(int x = 0; x < pixelArray[0].length/2; x++) 
-			{
-				newPixelArray[y][x] = pixelArray[pixelsY][pixelsX];
-				pixelsX += 2;
+		for(int i = 0; i < h; i++) {
+			for(int j = 0; j < w; j+=6) {
+				if(i % 2 == 0) {
+					d[t] = data[j + (w*i)]; 
+					d[t+1] = data[j + (w*i)+1];
+					d[t+2] = data[j + (w*i)+2];
+					t = t + 3;
+				}
 			}
-			pixelsX = 0;
-			pixelsY += 2;
 		}
 		
-		this.pixelArray = newPixelArray;
+		BitmapFileHeader bf = new BitmapFileHeader(this.bitmapFileHeader.getType(),this.bitmapFileHeader.getSize() - d.length*3,this.bitmapFileHeader.getOffBits());
+		BitmapInfoHeader bi = new BitmapInfoHeader(this.bitmapInfoHeader.getSize(),this.bitmapInfoHeader.getWidth()/2,this.bitmapInfoHeader.getHeight()/2,
+												   this.bitmapInfoHeader.getPlanes(),this.bitmapInfoHeader.getBitCount(),this.bitmapInfoHeader.getCompression(),d.length,
+												   this.bitmapInfoHeader.getxPelsPerMeter()/2,this.bitmapInfoHeader.getyPelsPerMeter()/2,this.bitmapInfoHeader.getClrUsed(),
+												   this.bitmapInfoHeader.getClrImportant());
+
+		return new Bitmap(bf,bi,d);
 	}
 	
 	public Pixel[][] flipVertical()
@@ -166,6 +203,10 @@ public class Bitmap
 		return data;
 	}
 	
+	public void setData(byte[] data) {
+		this.data=data;
+	}
+	
 	public Pixel[][] getPixelArray()
 	{
 		return pixelArray;
@@ -209,4 +250,13 @@ public class Bitmap
 		bmpFile.close();
 		
 	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
 }
