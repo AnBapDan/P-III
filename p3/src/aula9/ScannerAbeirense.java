@@ -3,52 +3,67 @@ package aula9;
 import java.io.BufferedInputStream;
 import java.io.Closeable;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.Scanner;
 
 public class ScannerAbeirense implements Iterator<String>, Closeable{
-	private String a;
-	private Scanner sc;
-	private String[] b;
-	private int i =0;
-	
-	public ScannerAbeirense(InputStream in) {
-		BufferedInputStream x = new BufferedInputStream(in);
-		this.a = x.read(); 
-		sc= new Scanner(in);
-		Change();
+
+	private BufferedInputStream x;
+
+	public ScannerAbeirense(InputStream x) throws IOException {
+		this.x = new BufferedInputStream(x);
 	}
 	
-	public ScannerAbeirense(File f) throws FileNotFoundException {
-		sc = new Scanner(f);
-		Change();
+	public ScannerAbeirense(File f) throws IOException {
+		this.x = new BufferedInputStream(new FileInputStream (f));
 	}
 	
-	public String Change() {
-		String s = a.replaceAll("v","b");
-		s = s.replaceAll("V","B" );
-		b = s.split(" ");
-		return s;
+	public String nextLine() {
+		String r="";
+		String next = next();
+		while (!(next.equals("\n"))) {
+			r += next;
+			next = next();
+		}
+		return r;
 	}
-	
+
+
+
 	@Override
-	public boolean hasNext() {
-		return sc.hasNext();
+	public boolean hasNext() {	
+		try {
+			return x.available() >0;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	@Override
 	public String next() {
-		sc.next();
-		return b[i++]+" ";
+		try {
+			int b = x.read();
+			if(b== -1) {
+				return"";
+			}
+			if(b == 'v' || b == 'V') {
+				b= b-20;
+			}
+			return ""+(char) b;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	@Override
 	public void close() throws IOException {
-		sc.close();
-		
+		x.close();
+
 	}
 
 }
