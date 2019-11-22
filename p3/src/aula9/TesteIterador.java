@@ -1,5 +1,7 @@
 package aula9;
 
+import java.util.Iterator;
+
 public abstract class TesteIterador {
 	public static void main(String[] args) {
 		VectorPessoas vp = new VectorPessoas();
