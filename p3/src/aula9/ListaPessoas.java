@@ -16,27 +16,50 @@ public class ListaPessoas{
 	}
 
 	
-	public Iterator iterator() {
-		// TODO Auto-generated method stub
-		return null;
+	public BFIterator iterator() {
+		return (this).new ListaIterator();
 	}
 	
 	
-	class ListaIterator implements Iterator<Pessoa>{
-		private int c = 0;
+	class ListaIterator implements BFIterator{
+		private int c;
 		
-		@Override
+		ListaIterator(){
+			c=0;
+		}
+		
 		public boolean hasNext() {
-			if(p.size()>p.indexOf(arg0)) {
-				return true;
-			}
-			return false;
+			return p.size()>c;
 		}
 
 		
-		@Override
 		public Pessoa next() {
-			return p.get(c++); 
+			if(hasNext()) {
+				Pessoa r = p.get(c);
+				c++;
+				return r;
+			}
+			else {
+				throw new IndexOutOfBoundsException(c+" elements for range "+p.size());
+			}
+		}
+
+		@Override
+		public void remove() {
+			throw new UnsupportedOperationException("Not supported operation!");
+			
+		}
+
+		@Override
+		public boolean hasPrevious() {
+			// TODO Auto-generated method stub
+			return false;
+		}
+
+		@Override
+		public Object previous() {
+			// TODO Auto-generated method stub
+			return null;
 		}
 		
 	}

@@ -1,7 +1,5 @@
 package aula9;
 
-import java.util.Iterator;
-
 public class VectorPessoas {
 	private int totalPessoas;
 	private final int cont = 50;
@@ -54,11 +52,11 @@ public class VectorPessoas {
 		}
 	}
 	
-	Iterator<Pessoa> iterator() {
+	public BFIterator iterator() {
 		return (this).new VectorIterator();
 	}
 	
-	class VectorIterator implements Iterator<Pessoa>{
+	class VectorIterator implements BFIterator{
 		private int index;
 		
 		VectorIterator(){
@@ -66,20 +64,39 @@ public class VectorPessoas {
 		}
 		
 		
-		@Override
 		public boolean hasNext() {
 			return index<totalPessoas;
 		}
 
-		@Override
-		public Pessoa next() {
+		public Object next() {
 			if(hasNext()) {
-				Pessoa r = pessoas[index];
+				Object r = pessoas[index];
 				index++;
 				return r;
 			}
 			else {
 				throw new IndexOutOfBoundsException(index+" elements for range "+totalPessoas);
+			}
+		}
+
+		public void remove() {
+			throw new UnsupportedOperationException("Not supported operation!");
+			
+		}
+
+		public boolean hasPrevious() {
+			return index>0;
+		}
+
+		public Object previous() {
+			if(hasPrevious()) {
+				index--;
+				Object r = pessoas[index];
+				return r;
+			}
+			else {
+				throw new IndexOutOfBoundsException("Reached and passed 0");
+
 			}
 		}
 		
