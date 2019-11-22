@@ -44,22 +44,25 @@ public class ListaPessoas{
 			}
 		}
 
-		@Override
 		public void remove() {
 			throw new UnsupportedOperationException("Not supported operation!");
 			
 		}
 
-		@Override
 		public boolean hasPrevious() {
-			// TODO Auto-generated method stub
-			return false;
+			return c>0;
 		}
 
-		@Override
 		public Object previous() {
-			// TODO Auto-generated method stub
-			return null;
+			if(hasPrevious()) {
+				c--;
+				Object r = p.get(c);
+				return r;
+			}
+			else {
+				throw new IndexOutOfBoundsException("Reached and passed 0");
+
+			}
 		}
 		
 	}
