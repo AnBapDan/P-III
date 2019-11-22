@@ -35,7 +35,7 @@ public class ScannerAbeirense implements Iterator<String>, Closeable{
 	@Override
 	public boolean hasNext() {	
 		try {
-			return x.available() >0;
+			return x.available() >0;			//Verifica a existencia de mais caracteres
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -46,13 +46,13 @@ public class ScannerAbeirense implements Iterator<String>, Closeable{
 	public String next() {
 		try {
 			int b = x.read();
-			if(b== -1) {
+			if(b== -1) {						// se b==-1 significa que não existe qualquer conteudo
 				return"";
 			}
 			if(b == 'v' || b == 'V') {
-				b= b-20;
+				b= b-20;						//De 'b' a 'v' são 20 caracteres de diferença
 			}
-			return ""+(char) b;
+			return ""+(char) b;					//Força a retornar um char
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
