@@ -1,5 +1,6 @@
 package aula10;
 
+import java.util.NoSuchElementException;
 import java.util.Stack;
 
 public class BinarySearchTree<T extends Comparable<? super T>> {
@@ -45,10 +46,12 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	}
 	
 	public void insert(T value) {
+		numNodes++;
 		root = insert(value, root);
 	}
 	
 	public void remove(T value) {
+		numNodes--;
 		root = remove(value, root);
 	}
 	
@@ -59,7 +62,6 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	private BSTNode<T> insert(T elem,BSTNode<T> n) {
 		if(valueOf(root)==null) {
 			root = new BSTNode<T>(elem);
-			numNodes++;
 			return root;
 		}
 		else {
@@ -67,22 +69,45 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 				n.left = insert(elem,n.left);
 				return n;
 			}
-			else if(elem.compareTo(n.element)>0) {
+			else{
 				n.right = insert(elem,n.right);
 				return n;
-			}
-			else {
-				return root;
 			}
 		}
 	}
 	
 	private BSTNode<T> remove(T elem,BSTNode<T> n) {
 		if(root==null)throw new NullPointerException();
-		return root;
+		if(!contains(elem))throw new NoSuchElementException();
+		int i=elem.compareTo(n.element);
+		if(i<0) {
+			n = remove(elem,n.left);
+		}
+		else if(i>0) {
+			n = remove(elem,n.right);
+		}
+		else {
+			if(n.left==null) {
+				n = n.right;
+			}
+			else if(n.right==null) {
+				n = n.left;
+			}
+			n.element = n.findMin().element;
+			n.right = remove(n.element,n.right);
+		}
+		return n;
 	}
 	
+	@SuppressWarnings("unchecked")
 	private BSTNode<T> find(T elem,BSTNode<T> n) {
+		Iterator<T> i = getIterator();
+		while(i.hasNext()) {
+			T n1 = (T) i.next();
+			if(n1.compareTo(elem)==0) {
+				return new BSTNode<T>(n1);
+			}
+		}
 		return root;
 	}
 	
@@ -91,10 +116,10 @@ public class BinarySearchTree<T extends Comparable<? super T>> {
 	}
 	
 	public Iterator<T> getIterator(){
-		return (this).new BSTIterator();
+		return (this).new BSTIterator<T>();
 	}
 	
-	class BSTIterator implements Iterator<T>{
+	public class BSTIterator<E> implements Iterator<E>{
 		Stack<BSTNode<T>> stack;
 		
 		public BSTIterator(){
