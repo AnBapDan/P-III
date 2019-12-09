@@ -5,6 +5,10 @@ public class Retangulo extends Figura{
 		super(x1,y1,x2,y2);
 		
 	}
+	
+	public Retangulo(Ponto p1,double i,double j) {
+		super(p1.x(),p1.y(),i,j);
+	}
 
 	public Retangulo(double i, double j) {
 		super(0,0,i,j);
