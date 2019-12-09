@@ -1,11 +1,9 @@
-package aula6;
-
-import aula6.Const.VariedadeCarne;
+package aula11;
 
 public class Carne extends Alimento{
 	private Const.VariedadeCarne tipo;
 
-	public Carne(VariedadeCarne tipo, double proteina, double calorias, double peso) {
+	public Carne(Const.VariedadeCarne tipo, double proteina, double calorias, double peso) {
 		super(proteina, calorias, peso);
 		this.tipo = tipo;
 		this.setVegetariano(false);

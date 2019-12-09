@@ -1,4 +1,6 @@
-package aula6;
+package aula11;
+
+import java.util.LinkedList;
 
 public class Prato implements Comparable<Prato>{
 	private String nome;
@@ -55,7 +57,7 @@ public class Prato implements Comparable<Prato>{
 	
 	public boolean addIngrediente(Alimento a) {
 		if(a==null)return false;
-		composicao.insert(a);
+		composicao.add(a);
 		this.setTotalCal(a.getCalorias(),1);
 		this.setTotalProt(a.getProteina(),1);
 		this.setPesoTotal(a.getPeso(),1);

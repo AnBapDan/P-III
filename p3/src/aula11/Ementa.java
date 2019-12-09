@@ -1,4 +1,4 @@
-package aula6;
+package aula11;
 
 import java.util.*;
 
@@ -25,11 +25,11 @@ public class Ementa {
 	
 	public void addPrato(Prato p, Const.DiaSemana d) {
 		if(pratos.containsKey(d)) {
-			pratos.get(d).insert(p);;
+			pratos.get(d).add(p);;
 		}
 		else {
 			LinkedList<Prato> tmp = new LinkedList<Prato>();
-			tmp.insert(p);
+			tmp.add(p);
 			pratos.put(d, tmp);
 		}
 	}
@@ -38,7 +38,7 @@ public class Ementa {
 	public String toString() {
 		Const.DiaSemana[] keys = pratos.keySet().toArray(new Const.DiaSemana[0]);
 		String s="";
-		UtilCompare.sortArray(keys);
+		Arrays.sort(keys);
 		for(Const.DiaSemana d : keys) {
 			LinkedList<Prato> tmp = pratos.get(d);
 			for(Prato p : tmp.toArray(new Prato[0])) {

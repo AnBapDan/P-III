@@ -1,4 +1,4 @@
-package aula6;
+package aula11;
 
 public class Alimento implements Comparable<Alimento>{
 	private double proteina, calorias, peso;

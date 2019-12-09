@@ -1,11 +1,9 @@
-package aula6;
-
-import aula6.Const.TipoPeixe;
+package aula11;
 
 public class Peixe extends Alimento{
 	private Const.TipoPeixe tipo;
 
-	public Peixe(TipoPeixe tipo, double proteina, double calorias, double peso) {
+	public Peixe(Const.TipoPeixe tipo, double proteina, double calorias, double peso) {
 		super(proteina, calorias, peso);
 		this.tipo = tipo;
 		this.setVegetariano(false);
