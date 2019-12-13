@@ -23,11 +23,7 @@ public class Ex11_2 {
 	}
 
 	private static double areaTotalJ8(List<Figura> figs) {
-//		double a =0;
-//		for(Figura f : figs) {
-//			a += f.area();
-//		}
-//		return a;
+
 		return figs.stream().mapToDouble(Figura::area).sum();
 	}
 	private static double areaTotalJ8(List<Figura> figs,String subtipoNome){
