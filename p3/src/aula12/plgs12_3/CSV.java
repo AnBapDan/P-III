@@ -18,7 +18,7 @@ public class CSV implements Agenda,IPlugin2{
 
 	@Override
 	public void fazQualQuerCoisa(String filename) {
-		CSV()
+		//CSV()
 		
 	}
 	
