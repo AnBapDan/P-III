@@ -52,6 +52,13 @@ public class Ex13_3 {
 				}
 
 			case 6:
+				int[] pop = new int[ugeral.size()];
+				int x=0;
+				for(Funcionario a : ugeral) {
+					pop[x]=(int) geral.stream().filter(s -> s.equals(a)).count();
+					x++;
+				}
+				x= pop.ind
 
 
 			case 7:
