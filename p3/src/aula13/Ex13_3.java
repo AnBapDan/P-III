@@ -19,6 +19,7 @@ public class Ex13_3 {
 	public static void main(String[] args) {
 		do {
 			menu();
+			System.out.print("Opcao -> ");
 			indicator = sc.nextInt();
 			switch(indicator) {
 			case 0:
@@ -43,6 +44,7 @@ public class Ex13_3 {
 			case 4:
 				sortBrinquedo();
 				System.out.println("\n\n");
+				brinquedos.clear();
 				break;
 
 			case 5:
@@ -50,15 +52,22 @@ public class Ex13_3 {
 				for(Funcionario a: ugeral) {
 					brinquedos.add(new Brinquedo(a.getNome()));
 				}
-
+				System.out.println("Nomes dos brinquedos:");
+				Brinquedo[] brin = brinquedos.toArray(new Brinquedo[0]);
+				for(int i=0;i<brinquedos.size();i++) {
+					System.out.println((i+1)+" - "+brin[i]);
+				}
+				brinquedos.clear();
+				break;
+				
 			case 6:
 				int[] pop = new int[ugeral.size()];
 				int x=0;
-				for(Funcionario a : ugeral) {
-					pop[x]=(int) geral.stream().filter(s -> s.equals(a)).count();
-					x++;
-				}
-				x= pop.ind
+//				for(Funcionario a : ugeral) {
+//					pop[x]=(int) geral.stream().filter(s -> s.equals(a)).count();
+//					x++;
+//				}
+				
 
 
 			case 7:
